@@ -111,7 +111,7 @@ Key insights:
 
 ## 6 Environmental cost 
 <div align="center">
-  <img src="figures/enviro_cost_infographic.png" width="600"/>
+  <img src="figures/enviro_cost_infographic.jpeg" width="600"/>
   <p><em>Estimated emissions from clustering using CodeCarbon</em></p>
 </div>
 
