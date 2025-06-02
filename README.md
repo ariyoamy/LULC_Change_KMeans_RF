@@ -58,7 +58,7 @@ All steps above are done in **01_preprocessing.ipynb**, exporting yearly 8-band 
 
 ## 3 Method overview  
 ### Unsupervised K-means (Notebook 02)    
-![kmeans_flow](figures/kmeans_pipeline.svg)
+![kmeans_flow](figures/unsupervised_pipeline.png)
 1. Sample pixels, 50 000 spectra from the 2021 composite.  
 2. Standardise features and select *k* with elbow and silhouette (optimal *k = 4*).  
 3. Fit K-Means once and predict full rasters for 2020-2024. 
@@ -71,7 +71,7 @@ All steps above are done in **01_preprocessing.ipynb**, exporting yearly 8-band 
 Clusters 0 and 2 are both “urban” under supervised labels yet remain spectrally distinct, providing finer detail for planners.
 
 ### Supervised Random-Forest (Notebook 03)    
-![rf_flow](figures/rf_pipeline.svg)
+![rf_flow](figures/supervised_pipeline.png)
 1. 250 points per class sampled from ESA *WorldCover 2021* inside the AOI (exported from Earth Engine).  
 2. Extract 8-band spectra at sample locations.  
 3. Train/test split (80 / 20) and fit RF (300 trees, class-balanced).  
