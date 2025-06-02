@@ -14,8 +14,8 @@ The study assesses accuracy, temporal consistency and carbon footprint, demonstr
 1. [Project motivation](#1-project-motivation)  
 2. [Data source and preprocessing](#2-data-source-and-preprocessing)  
 3. [Method overview](#3-method-overview)  
-   * 3.1 Unsupervised K-means pipeline  
-   * 3.2 Supervised Random-Forest pipeline  
+   * Unsupervised K-means pipeline  
+   * Supervised Random-Forest pipeline  
 4. [Notebooks and quick start](#4-notebooks-and-quick-start)  
 5. [Results at a glance](#5-results-at-a-glance)  
 6. [Environmental cost](#6-environmental-cost)  
@@ -53,7 +53,7 @@ All steps above are done in **01_preprocessing.ipynb**, exporting yearly 8-band 
 ---
 
 ## 3 Method overview  
-### 3.1 Unsupervised K-means (Notebook 02)    
+### Unsupervised K-means (Notebook 02)    
 ![kmeans_flow](figures/kmeans_pipeline.svg)
 1. Sample pixels, 50 000 spectra from the 2021 composite.  
 2. Standardise features and select *k* with elbow and silhouette (optimal *k = 4*).  
@@ -66,7 +66,7 @@ All steps above are done in **01_preprocessing.ipynb**, exporting yearly 8-band 
 
 Clusters 0 and 2 are both “urban” under supervised labels yet remain spectrally distinct, providing finer detail for planners.
 
-### 3.2 Supervised Random-Forest (Notebook 03)    
+### Supervised Random-Forest (Notebook 03)    
 ![rf_flow](figures/rf_pipeline.svg)
 1. 250 points per class sampled from ESA *WorldCover 2021* inside the AOI (exported from Earth Engine).  
 2. Extract 8-band spectra at sample locations.  
@@ -94,7 +94,7 @@ Clone the repo, open each notebook in Google Colab and run top-to-bottom.
 
 ---
 
-## 5 Results at a glance  
+## 5 Results  
 | Figure | Description |
 |--------|-------------|
 | ![kmeans_2024](figures/kmeans_wf_2024.png) | K-means classification 2024 (stable colours across years) |
