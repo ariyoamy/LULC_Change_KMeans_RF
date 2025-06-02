@@ -39,7 +39,7 @@ This project asks
 * Are cluster labels stable enough for five-year change analysis?  
 * What is the carbon cost difference between the two pipelines?
 <div align="center">
-  <img src="figures/study_area.png" width="600"/>
+  <img src="figures/Study_area.png" width="600"/>
   <p><em>Estimated emissions from clustering using CodeCarbon</em></p>
 </div>
 
