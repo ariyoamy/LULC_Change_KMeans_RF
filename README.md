@@ -31,7 +31,7 @@ The study assesses accuracy, temporal consistency and carbon footprint, demonstr
 
 ---
 
-## 1 Project motivation 
+## Project motivation and background
 Urban landscapes contain spectrally mixed surfaces that challenge land-cover models.  
 This project asks
 
@@ -45,7 +45,7 @@ This project asks
 
 ---
 
-## 2 Data source and preprocessing  
+## Data source and preprocessing  
 * **Imagery**: Sentinel-2 Level-2A surface reflectance, April–August 2020-2024.  
 * **Bands**: B2, B3, B4, B8, B11, B12 plus NDVI and NDBI.  
 * **Cloud mask**: Scene Classification Layer (SCL) with shadows, clouds and cirrus removed.  
@@ -56,7 +56,7 @@ All steps above are done in **01_preprocessing.ipynb**, exporting yearly 8-band 
 
 ---
 
-## 3 Method overview  
+## Method overview  
 ### Unsupervised K-means (Notebook 02)    
 ![kmeans_flow](figures/unsupervised_pipeline.png)
 1. Sample pixels, 50 000 spectra from the 2021 composite.  
@@ -87,7 +87,7 @@ Clusters 0 and 2 are both “urban” under supervised labels yet remain spectra
 
 ---
 
-## 4 Notebooks and quick start  
+## Notebooks and quick start  
 | Notebook | Purpose |
 |----------|---------|
 | **01_preprocessing.ipynb** | Download, cloud-mask, radiometrically normalise and export annual composites. |
@@ -98,7 +98,7 @@ Clone the repo, open each notebook in Google Colab and run top-to-bottom.
 
 ---
 
-## 5 Results  
+## Results  
 | Figure | Description |
 |--------|-------------|
 | ![kmeans_2024](figures/kmeans_cluster_maps_panel.png) | K-means classification 2020-24 |
@@ -114,7 +114,7 @@ Key insights:
 
 ---
 
-## 6 Environmental cost 
+## Environmental cost 
 <div align="center">
   <img src="figures/environmental_cost_infographic.jpg" width="600"/>
   <p><em>Estimated emissions from clustering using CodeCarbon</em></p>
@@ -129,10 +129,9 @@ Two complementary approaches were used:
 
 | Stage | Runtime (CPU) | Energy (kWh) | CO₂e (g) | Notes |
 |-------|--------------:|-------------:|---------:|-------|
+| Preprocessing | 6 min | 0.035 | 15.6 | tiled over ~1.5 × 10⁷ px |
 | K-Means fit (50 k px, *k* = 4) | 2 min | 0.014 | 6.1 | single pass |
 | RF training (1 000 pts × 4 classes) | 4 min | 0.028 | 12.4 | 300 trees, class-balanced |
-| Five RF roll-outs (2020-24) | 6 min | 0.035 | 15.6 | tiled over ~1.5 × 10⁷ px |
-| Notebook editing / plotting | 8 min | 0.022 | 9.7 | misc. CPU only |
 | **Total** | **20 min** | **0.099** | **43.8** | Colab, europe-west4 |
 
 *CodeCarbon v2.3.3 default UK grid intensity (≈ 443 g CO₂e kWh⁻¹).*  
@@ -159,13 +158,13 @@ A **43 g CO₂e** footprint is comparable to:
 * **Greener defaults:** rerunning notebooks on Google’s carbon-aware `europe-north1` (Finland, ~75 g CO₂e kWh⁻¹) would cut the project footprint to **< 15 g CO₂e**.
 
 ---
-## 7 Walkthrough Video
+## Walkthrough Video
 
 A video walkthrough of the project is available here:
 [Watch here](https://youtu.be/will_put_link_here_when_created)
 
 ---
-## 8 References & Acknowledgements
+## References & Acknowledgements
 This repository was developed as a **final project** for the UCL undergraduate module:
 
 > **GEOL0069: Artificial Intelligence for Earth Observation**  
