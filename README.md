@@ -38,6 +38,10 @@ This project asks
 * How different are the maps produced by a label-free K-means approach compared with a small-sample Random-Forest?  
 * Are cluster labels stable enough for five-year change analysis?  
 * What is the carbon cost difference between the two pipelines?
+<div align="center">
+  <img src="figures/study_area.png" width="600"/>
+  <p><em>Estimated emissions from clustering using CodeCarbon</em></p>
+</div>
 
 ---
 
