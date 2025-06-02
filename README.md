@@ -8,7 +8,7 @@ The study assesses accuracy, temporal consistency and carbon footprint, demonstr
 
 ---
 
-<details>
+<details open>
 <summary><strong>Table of Contents</strong></summary>
 
 1. [Project motivation and background](#project-motivation-and-background)  
