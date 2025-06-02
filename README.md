@@ -1,4 +1,4 @@
-![banner](figures/banner_placeholder.png)
+![banner](figures/kmeans_cluster_maps_panel.png)
 
 # Evaluating Supervised and Unsupervised Land-Cover Classification in Urban Environments  
 ### A Sentinel-2 Case Study of Waltham Forest, London (2020–2024)
@@ -101,8 +101,8 @@ Clone the repo, open each notebook in Google Colab and run top-to-bottom.
 ## 5 Results  
 | Figure | Description |
 |--------|-------------|
-| ![kmeans_2024](figures/kmeans_wf_2024.png) | K-means classification 2024 (stable colours across years) |
-| ![rf_2024](figures/rf_wf_2024.png) | Random-Forest classification 2024 |
+| ![kmeans_2024](figures/kmeans_cluster_maps_panel.png) | K-means classification 2020-24 |
+| ![rf_2024](figures/rf_classification_maps_panel.png) | Random-Forest classification 2020-24 |
 | ![delta](figures/change_map.png) | Urban gain (red) and vegetation loss (yellow) 2020-2024 |
 | ![importance](figures/rf_feature_importance.png) | RF global feature importance, NDVI and SWIR2 dominate |
 
