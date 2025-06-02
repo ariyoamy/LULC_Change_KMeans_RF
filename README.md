@@ -11,22 +11,19 @@ The study assesses accuracy, temporal consistency and carbon footprint, demonstr
 <details>
 <summary><strong>Table of Contents</strong></summary>
 
-1. [Project motivation](#1-project-motivation)  
-2. [Data source and preprocessing](#2-data-source-and-preprocessing)  
-3. [Method overview](#3-method-overview)  
-   * Unsupervised K-means pipeline  
-   * Supervised Random-Forest pipeline  
-4. [Notebooks and quick start](#4-notebooks-and-quick-start)  
-5. [Results at a glance](#5-results-at-a-glance)  
-6. [Environmental cost](#6-environmental-cost)  
-7. [Walkthrough video](#7-walkthrough-video)  
-8. [References & Acknowledgements](#8-references-&-acknowledgenents)  
-
-
-</details>
-
+1. [Project motivation and background](#project-motivation-and-background)  
+2. [Data source and preprocessing](#data-source-and-preprocessing)  
+3. [Method overview](#method-overview)  
+   * [Unsupervised K-means pipeline](#unsupervised-k-means-notebook-2)  
+   * [Supervised Random-Forest pipeline](#supervised-random-forest-notebook-3)  
+4. [Notebooks and quick start](#notebooks-and-quick-start)  
+5. [Results](#results)  
+6. [Environmental cost](#environmental-cost)  
+7. [Walkthrough Video](#walkthrough-video)  
+8. [References & Acknowledgements](#references--acknowledgements)
 
 </details>
+
 
 
 ---
