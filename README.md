@@ -99,10 +99,11 @@ Clone the repo, open each notebook in Google Colab and run top-to-bottom.
 ## Results  
 | Figure | Description |
 |--------|-------------|
-| ![kmeans_2024](figures/kmeans_cluster_maps_panel.png) | K-means classification 2020-24 |
-| ![rf_2024](figures/rf_classification_maps_panel.png) | Random-Forest classification 2020-24 |
-| ![delta](figures/change_map.png) | Urban gain (red) and vegetation loss (yellow) 2020-2024 |
-| ![importance](figures/rf_feature_importance.png) | RF global feature importance, nir and SWIR2 dominate |
+| <img src="figures/kmeans_cluster_maps_panel.png" width="800"/> | K-means classification 2020–24 |
+| <img src="figures/rf_classification_maps_panel.png" width="800"/> | Random-Forest classification 2020–24 |
+| <img src="figures/change_map.png" width="300"/> | Urban gain (red) and vegetation loss (yellow) 2020–2024 |
+| <img src="figures/rf_feature_importance.png" width="300"/> | RF global feature importance, NIR and SWIR2 dominate |
+
 
 Key insights:  
 * RF merges clusters 0 + 2, masking subtle residential densification visible in K-means.  
