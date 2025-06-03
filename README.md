@@ -106,9 +106,10 @@ Clone the repo, open each notebook in Google Colab and run top-to-bottom.
 
 
 Key insights:  
-* RF merges clusters 0 + 2, masking subtle residential densification visible in K-means.  
-* Both methods detect tba% net urban expansion inside the borough boundary.  
-* Cluster water area is identical within ±tba % between methods.
+* **K-means captures urban spectral subtypes**, separating roads and rooftops, while RF merges them into a single "urban" class, offering finer-grained detail useful for urban planning or densification analysis.
+* **Water area is highly stable** in both methods, with only **±0.15% change in RF** and **±2.13% in K-means**, indicating consistent performance for hydrological features.
+* **Urban area change diverges sharply** between methods: RF detects a 14.1% increase, while K-means suggests a 7.8% decrease. This highlights a trade-off: RF offers label-aligned outputs, but K-means is more sensitive to spectral drift, making it better at revealing ambiguous or transitional land cover, though less stable for categorical comparisons.
+
 
 ---
 
