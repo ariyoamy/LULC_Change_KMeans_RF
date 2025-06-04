@@ -28,16 +28,15 @@ The study assesses accuracy, temporal consistency and carbon footprint, demonstr
 
 ---
 
-## Project motivation and background
-Urban landscapes contain spectrally mixed surfaces that challenge land-cover models.  
-This project asks
+## Project Motivation and Background
+Urban environments present some of the most spectrally complex scenes in satellite imagery. Buildings, roads, vegetation, water, and bare surfaces are frequently intermingled at the pixel level, making automated land-cover classification in cities a persistent challenge (Weng, 2012). The ability to monitor urban form and change over time is increasingly vital for climate adaptation, infrastructure planning, and environmental monitoring (UN-Habitat, 2020).
 
-* How different are the maps produced by a label-free K-means approach compared with a small-sample Random-Forest?  
-* Are cluster labels stable enough for five-year change analysis?  
-* What is the carbon cost difference between the two pipelines?
+Traditionally, supervised machine learning approaches like Random Forests have been used for land-cover mapping, relying on labelled training samples to learn class distinctions. However, acquiring high-quality labelled data is time-consuming and subjective, especially in heterogeneous urban areas, where semantic boundaries are often unclear. Unsupervised methods such as K-means clustering offer a complementary alternative, classifying pixels based solely on their spectral characteristics. While typically less interpretable, they may detect subtle patterns or transitions missed by supervised models.
+
+This project explores both approaches by applying a Random Forest and an unsupervised K-means algorithm to five years of Sentinel-2 imagery over the Borough of Waltham Forest in northeast London. The aim is to compare not only classification accuracy and spatial patterns, but also temporal consistency and environmental cost. In doing so, the project asks: how do supervised and unsupervised methods differ in their representation of urban land cover? And can clustering provide a more flexible, low-emission alternative in data-scarce settings?
 <div align="center">
   <img src="figures/study_area.png" width="600"/>
-  <p><em>Estimated emissions from clustering using CodeCarbon</em></p>
+  <p><em>Fig. 1: Study area - Waltham Forest, London</em></p>
 </div>
 
 ---
@@ -180,6 +179,13 @@ This repository was developed as a **final project** for the UCL undergraduate m
   *Environmental Research Communications*.  
   DOI: [10.1088/2515-7620/acf81b](https://doi.org/10.1088/2515-7620/acf81b)  
   [hal.science/hal-04120582v2](https://hal.science/hal-04120582v2/document)
+
+- Weng, Q. (2012). *Remote sensing of impervious surfaces in urban areas: Requirements, methods, and trends*.  https://doi.org/10.1016/j.rse.2011.02.030
+    DOI: [https://doi.org/10.1016/j.rse.2011.02.030)  
+  [[hal.science/hal-04120582v2](https://www.sciencedirect.com/science/article/pii/S0034425711002811)]([https://hal.science/hal-04120582v2/document](https://www.sciencedirect.com/science/article/pii/S0034425711002811))
+     
+- UN-Habitat. (2020). *World Cities Report 2020: The Value of Sustainable Urbanization*. United Nations Human Settlements Programme. https://unhabitat.org/sites/default/files/2020/10/wcr_2020_report.pdf
+
 
 
 ---
