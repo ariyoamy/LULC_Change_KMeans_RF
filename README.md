@@ -1,4 +1,4 @@
-![banner](figures/kmeans_cluster_maps_panel.png)
+![banner](figures/combined_cluster_maps_panels.png)
 
 # Evaluating Supervised and Unsupervised Land-Cover Classification in Urban Environments  
 ### A Sentinel-2 Case Study of Waltham Forest, London (2020–2024)
