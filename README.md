@@ -42,13 +42,17 @@ This project explores both approaches by applying a Random Forest and an unsuper
 ---
 
 ## Data source and preprocessing  
-* **Imagery**: Sentinel-2 Level-2A surface reflectance, April–August 2020-2024.  
-* **Bands**: B2, B3, B4, B8, B11, B12 plus NDVI and NDBI.  
-* **Cloud mask**: Scene Classification Layer (SCL) with shadows, clouds and cirrus removed.  
-* **Radiometric normalisation**: Per-band 2–98 % clipping and min-max scaling to 0–1 using 2021 as reference, ensuring cross-year comparability.  
+This project uses Sentinel-2 Level-2A surface reflectance imagery from the Copernicus Open Access Hub to generate annual composites for land-cover classification over the London Borough of Waltham Forest.
+
+The data was preprocessed as follows:
+* **Time window**: April–August for each year (2020–2024).
+These composites focus on the leaf-on season, when vegetation is fully active and spectral differences between land-cover types—such as vegetation, built surfaces, and water, are most pronounced. This improves model contrast and consistency.
+* **Bands**: B2 (Blue), B3 (Green), B4 (Red), B8 (NIR), B11 (SWIR1), B12 (SWIR2), plus NDVI and NDBI
+* **Cloud and shadow masking**: Pixels affected by clouds, cirrus, or shadows were removed using the Scene Classification Layer (SCL).  
+* **Radiometric normalisation**: Pixel values in each band were clipped to the 2nd–98th percentile and scaled to [0, 1], using 2021 as a reference year. This ensures cross-year comparability in brightness and contrast. 
 * **AOI**: Borough boundary of Waltham Forest (geoBoundaries ADM2).  
 
-All steps above are done in **01_preprocessing.ipynb**, exporting yearly 8-band GeoTIFFs at 10 m to Google Drive.
+All processing steps are executed in 01_preprocessing.ipynb, exporting yearly 8-band 10 m GeoTIFFs to Google Drive.
 
 ---
 
