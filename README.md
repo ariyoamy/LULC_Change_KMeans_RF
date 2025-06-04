@@ -57,26 +57,34 @@ All processing steps are executed in 01_preprocessing.ipynb, exporting yearly 8-
 ---
 
 ## Method overview  
-### Unsupervised K-means (Notebook 2)    
-![kmeans_flow](figures/unsupervised_pipeline.png)
-1. Sample pixels, 50 000 spectra from the 2021 composite.  
-2. Standardise features and select *k* with elbow and silhouette (optimal *k = 4*).  
-3. Fit K-Means once and predict full rasters for 2020-2024. 
-4. Semantic interpretation  
-   * Cluster 0 – dense urban (high SWIR)  
-   * Cluster 1 – vegetation (high NDVI)  
-   * Cluster 2 – light urban / residential (moderate SWIR)  
-   * Cluster 3 – open water (low NIR, high NDBI)  
+This project applies two contrasting machine learning approaches to classify land cover in Waltham Forest from Sentinel-2 imagery: unsupervised K-Means clustering and supervised Random Forest classification. Both methods follow a shared preprocessing pipeline but diverge in how they leverage label information.
 
-Clusters 0 and 2 are both “urban” under supervised labels yet remain spectrally distinct, providing finer detail for planners.
+<div align="center"> <img src="figures/unsupervised_pipeline.png" width="780"/> <p><em>Fig. 2.1: K-Means clustering pipeline (see Notebook 2).</em></p> </div>
 
-### Supervised Random-Forest (Notebook 3)    
-![rf_flow](figures/supervised_pipeline.png)
-1. 250 points per class sampled from ESA *WorldCover 2021* inside the AOI (exported from Earth Engine).  
-2. Extract 8-band spectra at sample locations.  
-3. Train/test split (80 / 20) and fit RF (300 trees, class-balanced).  
-4. Apply scaler and RF to yearly composites.  
-5. Evaluate with accuracy, precision, recall and confusion matrix.
+### Unsupervised K-means  
+K-Means clustering groups pixels based on spectral similarity without requiring any labelled data. It is particularly useful in exploratory settings or when class boundaries are subtle or subjective. After computing spectral features (including NDVI and NDBI), a random sample of 50,000 pixels from the 2021 composite is used to fit a StandardScaler and run K-Means with k = 4, selected using elbow and silhouette methods.
+
+The four resulting clusters are semantically interpreted as:
+
+* Cluster 0 – Dense urban (high SWIR)
+
+* Cluster 1 – Vegetation (high NDVI)
+
+* Cluster 2 – Light urban or residential (moderate SWIR)
+
+* Cluster 3 – Open water (low NIR, high NDBI)
+
+Clusters 0 and 2 are both considered “urban” under traditional classification but remain spectrally distinct here, offering granular insight into urban heterogeneity often collapsed in supervised models.
+
+<div align="center"> <img src="figures/how_kmeans_works.png" width="520"/> <p><em>Fig. 2.2: Conceptual diagram of K-Means clustering (source: Medium, 2024).</em></p> </div>
+
+### Supervised Random-Forest 
+<div align="center"> <img src="figures/supervised_pipeline.png" width="780"/> <p><em>Fig. 2.3: Random Forest classification pipeline (see Notebook 3).</em></p> </div>
+Random Forest (RF) is a supervised ensemble model trained on reference labels from ESA WorldCover 2021, with 250 points sampled per class. Each sample is enriched with 8 spectral features. The model is trained using an 80/20 train-test split, balancing classes and using 300 decision trees.
+
+After training, the RF model is applied to annual composites from 2020 to 2024 to produce classified maps. Feature importance is also computed using SHAP values to interpret spectral contributions.
+
+Evaluation against held-out test data from 2021 shows:
 
 | Metric            | 2021 test |
 |-------------------|-----------|
@@ -85,6 +93,7 @@ Clusters 0 and 2 are both “urban” under supervised labels yet remain spectra
 | F1 (urban)        | 0.77      |
 | F1 (water)        | 0.93      |
 
+Random Forest offers robust classification performance, particularly for stable land types like water. However, it tends to merge spectrally distinct subclasses (e.g. rooftops vs. roads), which K-Means retains.
 
 ---
 
@@ -189,6 +198,8 @@ This repository was developed as a **final project** for the UCL undergraduate m
   [[hal.science/hal-04120582v2](https://www.sciencedirect.com/science/article/pii/S0034425711002811)]([https://hal.science/hal-04120582v2/document](https://www.sciencedirect.com/science/article/pii/S0034425711002811))
      
 - UN-Habitat. (2020). *World Cities Report 2020: The Value of Sustainable Urbanization*. United Nations Human Settlements Programme. https://unhabitat.org/sites/default/files/2020/10/wcr_2020_report.pdf
+
+- Medium. (2024). *Understanding how K-Means Clustering Works (A detailed guide).  [https://unhabitat.org/sites/default/files/2020/10/wcr_2020_report.pdf](https://levelup.gitconnected.com/understanding-how-k-means-clustering-works-a-detailed-guide-9a2f8009a279)
 
 
 
