@@ -114,11 +114,6 @@ Key insights:
 ---
 
 ## Environmental cost 
-<div align="center">
-  <img src="figures/environmental_cost_infographic.jpg" width="600"/>
-  <p><em>Estimated emissions from clustering using CodeCarbon</em></p>
-</div>
-
 Two complementary approaches were used:
 
 1. **Empirical tracking with CodeCarbon** – a decorator wraps the most energy-intensive cells (K-Means fit, RF training, full-image predictions).  
