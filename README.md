@@ -113,7 +113,7 @@ Clone the repo, open each notebook in Google Colab and run top-to-bottom.
 |--------|-------------|
 | <img src="figures/kmeans_cluster_maps.gif" width="300"/> | K-means classification 2020–24 |
 | <img src="figures/rf_classification.gif" width="300"/> | Random-Forest classification 2020–24 |
-| <img src="figures/change_map.png" width="300"/> | Urban gain (red) and vegetation loss (yellow) 2020–2024 |
+| <img src="figures/rf_kmeans_change_maps.png" width="800"/> | Urban gain (red) and vegetation loss (yellow) 2020–2024 |
 | <img src="figures/rf_feature_importance.png" width="300"/> | RF global feature importance, NIR and SWIR2 dominate |
 
 
