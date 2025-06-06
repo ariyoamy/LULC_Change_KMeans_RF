@@ -66,13 +66,13 @@ K-Means clustering groups pixels based on spectral similarity without requiring 
 
 The four resulting clusters are semantically interpreted as:
 
-* Cluster 0 – Dense urban (high SWIR)
+* Cluster 0 – Urban (residential/roads) (moderate SWIR, low NDVI)
 
-* Cluster 1 – Vegetation (high NDVI)
+* Cluster 1 – Vegetation (high NDVI, moderate SWIR)
 
-* Cluster 2 – Light urban or residential (moderate SWIR)
+* Cluster 2 – Industrial / Light roofs (high SWIR, low NDVI)
 
-* Cluster 3 – Open water (low NIR, high NDBI)
+* Cluster 3 – Open water (low NIR, very low SWIR)
 
 Clusters 0 and 2 are both considered “urban” under traditional classification but remain spectrally distinct here, offering granular insight into urban heterogeneity often collapsed in supervised models.
 
@@ -118,7 +118,7 @@ Clone the repo, open each notebook in Google Colab and run top-to-bottom.
 
 
 Key insights:  
-* **K-means captures urban spectral subtypes**, separating roads and rooftops, while RF merges them into a single "urban" class, offering finer-grained detail useful for urban planning or densification analysis.
+* **K-means captures urban spectral subtypes**: Unlike the supervised RF model, K-means detected a fourth cluster—interpreted as **industrial or light-roofed buildings** (e.g., schools, depots, warehouses). These areas exhibit distinct spectral properties (e.g. lower NIR, higher SWIR) compared to dense residential urban zones. While this added detail provides **granular insight into urban heterogeneity**, it comes at the cost of lacking semantic labels, requiring post hoc interpretation via visual inspection or auxiliary datasets like Google Earth.
 * **Water area is highly stable** in both methods, with only **±0.15% change in RF** and **±2.13% in K-means**, indicating consistent performance for hydrological features.
 * **Urban area change diverges sharply** between methods: RF detects a 14.1% increase, while K-means suggests a 7.8% decrease. This highlights a trade-off: RF offers label-aligned outputs, but K-means is more sensitive to spectral drift, making it better at revealing ambiguous or transitional land cover, though less stable for categorical comparisons.
 
@@ -135,7 +135,7 @@ Two complementary approaches were used:
 
 | Stage | Runtime (CPU) | Energy (kWh) | CO₂e (g) | Notes |
 |-------|--------------:|-------------:|---------:|-------|
-| Preprocessing | 6 min | 0.035 | 15.6 | tiled over ~1.5 × 10⁷ px |
+| Preprocessing | 2 min | 0.000560 | 0.000131 | + 10 mins GEE |
 | K-Means fit (50 k px, *k* = 4) | 7 min | 0.002289 | 0.000533 | single pass |
 | RF training (1 000 pts × 4 classes) | 4 min | 0.028 | 12.4 | 300 trees, class-balanced |
 | **Total** | **20 min** | **0.099** | **43.8** | Colab, europe-west4 |
