@@ -136,7 +136,7 @@ Two complementary approaches were used:
 | Stage | Runtime (CPU) | Energy (kWh) | CO₂e (g) | Notes |
 |-------|--------------:|-------------:|---------:|-------|
 | Preprocessing | 6 min | 0.035 | 15.6 | tiled over ~1.5 × 10⁷ px |
-| K-Means fit (50 k px, *k* = 4) | 2 min | 0.014 | 6.1 | single pass |
+| K-Means fit (50 k px, *k* = 4) | 7 min | 0.002289 | 0.000533 | single pass |
 | RF training (1 000 pts × 4 classes) | 4 min | 0.028 | 12.4 | 300 trees, class-balanced |
 | **Total** | **20 min** | **0.099** | **43.8** | Colab, europe-west4 |
 
