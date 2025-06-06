@@ -116,6 +116,22 @@ Clone the repo, open each notebook in Google Colab and run top-to-bottom.
 | <img src="figures/rf_kmeans_change_maps.png" width="800"/> | Urban gain (red) and vegetation loss (yellow) 2020–2024 |
 | <img src="figures/rf_feature_importance.png" width="300"/> | RF global feature importance, NIR and SWIR2 dominate |
 
+### Land-Cover Area Comparison (%), 2024
+
+| Class        | Random Forest (%) | K-Means (%) | Notes |
+|--------------|-------------------|-------------|-------|
+| **Urban**    | 39.43              | 48.48       | RF underestimates urban compared to K-Means |
+| **Industrial** | 0.00              | 6.16        | RF merges this into general urban — K-Means separates it |
+| **Vegetation** | 53.65            | 39.39       | RF likely over-assigns vegetation |
+| **Water**    | 6.92               | 5.97        | High agreement between methods |
+
+**Key observations:**
+- **K-Means identifies an "Industrial" subtype** (~6%) which RF collapses into the broader urban category.
+- **Vegetation is overestimated in RF**, likely due to shadows or mixed pixels in semi-urban green areas.
+- **Water class shows excellent consistency**, suggesting both methods reliably detect hydrological features.
+- These differences highlight a core trade-off: **RF aligns better with labelled categories**, while **K-Means reveals finer spectral distinctions** — valuable in heterogeneous urban environments.
+
+
 
 Key insights:  
 * **K-means captures urban spectral subtypes**: Unlike the supervised RF model, K-means detected a fourth cluster—interpreted as **industrial or light-roofed buildings** (e.g., schools, depots, warehouses). These areas exhibit distinct spectral properties (e.g. lower NIR, higher SWIR) compared to dense residential urban zones. While this added detail provides **granular insight into urban heterogeneity**, it comes at the cost of lacking semantic labels, requiring post hoc interpretation via visual inspection or auxiliary datasets like Google Earth.
