@@ -129,7 +129,7 @@ Clone the repo, open each notebook in Google Colab and run top-to-bottom.
 - **K-Means identifies an "Industrial" subtype** (~6%) which RF collapses into the broader urban category.
 - **Vegetation is overestimated in RF**, likely due to shadows or mixed pixels in semi-urban green areas.
 - **Water class shows excellent consistency**, suggesting both methods reliably detect hydrological features.
-- These differences highlight a core trade-off: **RF aligns better with labelled categories**, while **K-Means reveals finer spectral distinctions** — valuable in heterogeneous urban environments.
+- These differences highlight a core trade-off: **RF aligns better with labelled categories**, while **K-Means reveals finer spectral distinctions**, valuable in heterogeneous urban environments.
 
 
 
