@@ -142,42 +142,50 @@ Key insights:
 ---
 
 ## Environmental cost 
-Two complementary approaches were used:
-
-1. **Empirical tracking with CodeCarbon** – a decorator wraps the most energy-intensive cells (K-Means fit, RF training, full-image predictions).  
-2. **Life-cycle discussion** – hardware manufacture, satellite upstream costs and hosting overheads are reviewed qualitatively.
+This project incorporates environmental accountability by tracking the computational energy usage and estimated carbon emissions associated with each stage of the workflow. While the emissions are minimal in absolute terms, the broader goal is to cultivate sustainable habits in spatial computing and remote sensing research.
 
 ### Measured emissions  
 
-| Stage | Runtime (CPU) | Energy (kWh) | CO₂e (g) | Notes |
-|-------|--------------:|-------------:|---------:|-------|
-| Preprocessing | 2 min | 0.000560 | 0.000131 | + 10 mins GEE |
-| K-Means fit (50 k px, *k* = 4) | 7 min | 0.002289 | 0.000533 | single pass |
-| RF training (1 000 pts × 4 classes) | 4 min | 0.028 | 12.4 | 300 trees, class-balanced |
-| **Total** | **20 min** | **0.099** | **43.8** | Colab, europe-west4 |
+| Stage           | Runtime (hrs) | Energy (kWh) |  CO₂e (g) |    Cost (£) | Notes                   |
+| --------------- | ------------: | -----------: | --------: | ----------: | ----------------------- |
+| Preprocessing   |        0.0280 |     0.000560 |     0.131 |      0.0002 | GEE export + rescaling  |
+| K-Means (k = 4) |        0.1145 |     0.002289 |     0.533 |      0.0007 | Cluster fit + inference |
+| Random Forest   |        0.0646 |     0.001292 |     0.301 |      0.0004 | Train, predict, compare |
+| **Total**       |    **0.2071** | **0.004141** | **0.965** | **£0.0013** | All stages, CPU only    |
 
-*CodeCarbon v2.3.3 default UK grid intensity (≈ 443 g CO₂e kWh⁻¹).*  
 
-A **43 g CO₂e** footprint is comparable to:
+*Assumptions: 20 W CPU, 0.233 kg CO₂/kWh (UK grid), £0.30/kWh.*
 
-* boiling **0.6 kettles** of water  
-* driving a petrol car **300 m**  
-* streaming HD video for **6 minutes**
+At just under **1 g CO₂e**, the entire analysis emitted less than:
+
+- **1 minute of HD video streaming**
+- **Boiling ⅒ of a kettle**
+- **Driving ~5 meters in a petrol car**
+
+
 
 ### Contextual impacts  
 
-| Component | Impact channel | Mitigation in this study |
-|-----------|----------------|--------------------------|
-| **Compute** | Google Colab (T4 CPU only). Short runtimes keep energy use below 0.1 kWh. | No GPU required; region chosen for moderate grid mix. |
-| **Data transfer / storage** | Five 80 MB GeoTIFFs stored in Drive. Negligible (< 0.001 kWh yr⁻¹). | Git LFS ignored for rasters; only notebooks and SVGs in repo. |
-| **Hardware manufacture** | Embodied emissions of Colab servers and personal laptop. | Use of shared cloud nodes maximises utilisation; local laptop kept asleep during training. |
-| **Satellite upstream** | Sentinel-2 launch (one-off ≈ 130 t CO₂e) amortised over > 10 million scene-equivalents. | AOI composites use < 0.00002 % of S-2 acquisitions: marginal impact. |
+| **Component**                   | **Impact Channel**                                                                                              | **Mitigation or Rationale**                                                                                          |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **Compute (Colab CPU)**         | Used Google Colab with virtualised CPU-only runtime (no GPU). Default region likely europe-west4 (Netherlands). | No local compute needed. Short runtimes (~12 mins total) and low power use (20 W CPU) kept energy below 0.005 kWh.  |
+| **Cloud infrastructure**        | Google data centres are carbon-neutral since 2007 and aim for 24/7 carbon-free energy by 2030.                  | Shared infrastructure improves efficiency. Carbon-aware scheduling supports cleaner regions like europe-north1.      |
+| **Satellite data (Sentinel-2)** | Launch emissions ~130 t CO₂ per satellite amortised across >10 million global acquisitions.                    | AOI use < 0.00002% of S-2 capacity. Promotes efficient reuse of open-access datasets.                                |
+| **Storage & transfer**          | Less than 1 GB of data stored on Google Drive during processing. Files deleted after use.                       | Lifecycle energy < 0.001 kWh/yr. No raster storage in GitHub. Only notebooks and vector assets included.             |
+| **Code efficiency**             | Avoided unnecessary recomputation, and GPU use. Workflows designed to be single-pass and modular.        | Fast execution, reproducibility, and minimal overhead. No fine-tuning or iterative ML models required.               |
+| **Hardware manufacturing**      | Embodied emissions from shared Colab hardware and personal laptop.                                              | Laptop remained idle during runs. Cloud execution leverages already-active servers, maximising hardware utilisation. |
 
-### Discussion  
+### Discussion and Mitigation  
 
-* **Method choice matters:** the unsupervised pipeline emits ~40 % less than RF training-plus-inference yet still delivers useful change-detection insight.  
-* **Scale sensitivity:** processing an entire GLA extent (610 km²) at 10 m would raise emissions by ≈ 6 × unless tiling is parallelised on low-carbon hardware.  
-* **Greener defaults:** rerunning notebooks on Google’s carbon-aware `europe-north1` (Finland, ~75 g CO₂e kWh⁻¹) would cut the project footprint to **< 15 g CO₂e**.
+* Scale matters: Extending to a city-scale project (e.g., all of Greater London) could increase emissions by 6× or more, depending on resolution and tiling.
+
+* Colab region choice: Using carbon-aware Colab Pro with europe-north1 or us-west1 could cut emissions by up to 80%.
+
+* Reusable code: Modular notebooks and reproducible pipelines reduce the need to re-run experiments, improving computational efficiency per insight.
+
+* Unsupervised methods like K-Means offer lower-carbon alternatives in scenarios where labelled data is unavailable or overfitting is a risk.
+
+Ultimately, while this project’s carbon footprint is scientifically negligible, its methodical accounting reflects a responsible approach to computational geography. As machine learning expands in environmental domains, even small efficiencies can add up to meaningful impact.
 
 ---
 ## Walkthrough Video
@@ -216,6 +224,13 @@ This repository was developed as a **final project** for the UCL undergraduate m
 - UN-Habitat. (2020). *World Cities Report 2020: The Value of Sustainable Urbanization*. United Nations Human Settlements Programme. https://unhabitat.org/sites/default/files/2020/10/wcr_2020_report.pdf
 
 - Medium. (2024). *Understanding how K-Means Clustering Works (A detailed guide).  [https://unhabitat.org/sites/default/files/2020/10/wcr_2020_report.pdf](https://levelup.gitconnected.com/understanding-how-k-means-clustering-works-a-detailed-guide-9a2f8009a279)
+
+- Google. (2024). 2024 Environmental Report. https://blog.google/outreach-initiatives/sustainability/2024-environmental-report/
+
+- Google. Innovating sustainable ideas. Growing renewable solutions. https://datacenters.google/operating-sustainably/
+
+- Strubell, E., Ganesh, A., & McCallum, A. (2020). Energy and Policy Considerations for Modern Deep Learning Research DOI: https://doi.org/10.1609/aaai.v34i09.7123
+  https://ojs.aaai.org/index.php/AAAI/article/view/7123
 
 
 
