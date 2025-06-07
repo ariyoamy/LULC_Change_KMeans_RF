@@ -14,8 +14,8 @@ The study assesses accuracy, temporal consistency and carbon footprint, demonstr
 1. [Project motivation and background](#project-motivation-and-background)  
 2. [Data source and preprocessing](#data-source-and-preprocessing)  
 3. [Method overview](#method-overview)  
-   * [Unsupervised K-means pipeline](#unsupervised-k-means-notebook-2)  
-   * [Supervised Random-Forest pipeline](#supervised-random-forest-notebook-3)  
+   * [Unsupervised K-means](#unsupervised-k-means)  
+   * [Supervised Random-Forest](#supervised-random-forest)  
 4. [Notebooks and quick start](#notebooks-and-quick-start)  
 5. [Results](#results)  
 6. [Environmental cost](#environmental-cost)  
@@ -100,9 +100,9 @@ Random Forest offers robust classification performance, particularly for stable 
 ## Notebooks and quick start  
 | Notebook | Purpose |
 |----------|---------|
-| **01_preprocessing.ipynb** | Download, cloud-mask, radiometrically normalise and export annual composites. |
-| **02_unsupervised_kmeans.ipynb** | K-means training, prediction and map generation. |
-| **03_supervised_randomforest.ipynb** | Sample extraction, RF training, inference, feature importance and comparison plots. |
+| **01_preprocessing.ipynb** | Download and prep Sentinel-2 composites |
+| **02_unsupervised_kmeans.ipynb** | Fit and apply K-means model |
+| **03_supervised_randomforest.ipynb** | Train Random Forest, run inference, compare results |
 
 Clone the repo, open each notebook in Google Colab and run top-to-bottom.  
 
@@ -122,23 +122,40 @@ Clone the repo, open each notebook in Google Colab and run top-to-bottom.
 |--------------|-------------------|-------------|-------|
 | **Urban**    | 39.43              | 48.48       | RF underestimates urban compared to K-Means |
 | **Industrial** | 0.00              | 6.16        | RF merges this into general urban — K-Means separates it |
-| **Vegetation** | 53.65            | 39.39       | RF likely over-assigns vegetation |
+| **Vegetation** | 53.65            | 39.39       | RF likely over-assigns green areas |
 | **Water**    | 6.92               | 5.97        | High agreement between methods |
 
-**Key observations:**
-- **K-Means identifies an "Industrial" subtype** (~6%) which RF collapses into the broader urban category.
-- **Vegetation is overestimated in RF**, likely due to shadows or mixed pixels in semi-urban green areas.
-- **Water class shows excellent consistency**, suggesting both methods reliably detect hydrological features.
-- These differences highlight a core trade-off: **RF aligns better with labelled categories**, while **K-Means reveals finer spectral distinctions**, valuable in heterogeneous urban environments.
+
+### Key insights and Observations:  
+
+* **K-means captures urban spectral subtypes**: Unlike the supervised RF model, K-means detected a fourth cluster—interpreted as **industrial or light-roofed buildings** (e.g., schools, depots, warehouses). These areas exhibit distinct spectral properties (e.g. lower NIR, higher SWIR) compared to dense residential urban zones. While this unsupervised detail adds granularity to urban structure, it lacks predefined semantic categories, requiring interpretation after the fact. RF, in contrast, provides clearer class labels but may overlook subtle within-class variation.
+
+* **Vegetation assignment varies:** RF shows higher vegetation cover, likely due to its sensitivity to NDVI-rich mixed pixels in semi-urban areas. K-means appears stricter, separating low-NIR industrial areas from vegetation, which may reduce overclassification but risks false negatives in tree-shaded zones.
+
+* **Hydrological features are stable:** Water areas showed high consistency in both methods: just ±0.15% change in RF and ±2.13% in K-means, suggesting both models reliably detect open water.
+
+* **Change detection diverges sharply:** RF estimates +14.1% urban growth, while K-means reports a 7.8% decline. This isn’t a bug, it highlights how unsupervised methods react to subtle spectral shifts (e.g. ageing roofs, greening front gardens) without being anchored to training labels. RF is more consistent for policy-aligned classification; K-means is more reactive to surface change, for better or worse.
+
+* **Urban area change diverges sharply** between methods: RF detects a 14.1% increase, while K-means suggests a 7.8% decrease. This highlights a trade-off: RF, with its label-aligned outputs, offers greater consistency for policy-relevant, categorical classification. In contrast, K-means is more reactive to subtle surface changes—like greening front gardens or weathered rooftops—making it more sensitive to spectral drift and better at capturing transitional or ambiguous land cover, though less stable for direct class-to-class comparisons.
 
 
+### Limitations 
+* **Supervised training is label-dependent:**
+RF reflects the structure of its training labels (ESA WorldCover), which can obscure subcategories that are spectrally distinct but grouped semantically.
 
-Key insights:  
-* **K-means captures urban spectral subtypes**: Unlike the supervised RF model, K-means detected a fourth cluster—interpreted as **industrial or light-roofed buildings** (e.g., schools, depots, warehouses). These areas exhibit distinct spectral properties (e.g. lower NIR, higher SWIR) compared to dense residential urban zones. While this added detail provides **granular insight into urban heterogeneity**, it comes at the cost of lacking semantic labels, requiring post hoc interpretation via visual inspection or auxiliary datasets like Google Earth.
-* **Water area is highly stable** in both methods, with only **±0.15% change in RF** and **±2.13% in K-means**, indicating consistent performance for hydrological features.
-* **Urban area change diverges sharply** between methods: RF detects a 14.1% increase, while K-means suggests a 7.8% decrease. This highlights a trade-off: RF offers label-aligned outputs, but K-means is more sensitive to spectral drift, making it better at revealing ambiguous or transitional land cover, though less stable for categorical comparisons.
+* **K-means requires interpretation:**
+Without ground truth, cluster identity is inferred through spectral profiles and visual inspection, useful in data-sparse regions, but less reliable for standardised classification.
 
+* **Temporal consistency varies:**
+K-means predictions vary more across years due to its centroids being fitted only on 2021 data. RF, trained on labeled examples from each year, generalises more reliably for temporal comparisons.
 
+* **Urban mapping is subjective:**
+What counts as "urban" depends on context, rooftops, carparks, roads, and even some bare soil can all register differently depending on the method. This project doesn’t solve that ambiguity, but visual side-by-sides help reveal what each model is actually capturing.
+
+<div align="center">
+  <img src="figures/combined_cluster_maps_panels.png" width="600"/>
+  <p><em>Fig. 1: Study area - Waltham Forest, London</em></p>
+</div>
 ---
 
 ## Environmental cost 
@@ -164,16 +181,17 @@ At just under **1 g CO₂e**, the entire analysis emitted less than:
 
 
 
-### Contextual impacts  
+### Contextual impacts 
 
-| **Component**                   | **Impact Channel**                                                                                              | **Mitigation or Rationale**                                                                                          |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| **Compute (Colab CPU)**         | Used Google Colab with virtualised CPU-only runtime (no GPU). Default region likely europe-west4 (Netherlands). | No local compute needed. Short runtimes (~12 mins total) and low power use (20 W CPU) kept energy below 0.005 kWh.  |
-| **Cloud infrastructure**        | Google data centres are carbon-neutral since 2007 and aim for 24/7 carbon-free energy by 2030.                  | Shared infrastructure improves efficiency. Carbon-aware scheduling supports cleaner regions like europe-north1.      |
-| **Satellite data (Sentinel-2)** | Launch emissions ~130 t CO₂ per satellite amortised across >10 million global acquisitions.                    | AOI use < 0.00002% of S-2 capacity. Promotes efficient reuse of open-access datasets.                                |
-| **Storage & transfer**          | Less than 1 GB of data stored on Google Drive during processing. Files deleted after use.                       | Lifecycle energy < 0.001 kWh/yr. No raster storage in GitHub. Only notebooks and vector assets included.             |
-| **Code efficiency**             | Avoided unnecessary recomputation, and GPU use. Workflows designed to be single-pass and modular.        | Fast execution, reproducibility, and minimal overhead. No fine-tuning or iterative ML models required.               |
-| **Hardware manufacturing**      | Embodied emissions from shared Colab hardware and personal laptop.                                              | Laptop remained idle during runs. Cloud execution leverages already-active servers, maximising hardware utilisation. |
+The project’s carbon footprint was extremely low (<1g CO₂e), but several contextual factors shaped this outcome:
+
+* Compute & cloud use: Used CPU-only runtime in Google Colab with short (<12 min) execution time; servers are carbon-neutral.
+
+* Satellite data: Sentinel-2 emissions are amortised across millions of acquisitions—this project used <0.00002% of total capacity.
+
+* Efficiency practices: Modular code, single-pass processing, and no GPU/fine-tuning minimised computational load.
+
+* Storage & hardware: Temporary cloud storage; no large raster files or repeated compute. Local hardware remained idle during runs.
 
 ### Discussion and Mitigation  
 
