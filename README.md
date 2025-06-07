@@ -156,6 +156,7 @@ What counts as "urban" depends on context, rooftops, carparks, roads, and even s
   <img src="figures/combined_cluster_maps_panels.png" width="600"/>
   <p><em>Fig. 1: Study area - Waltham Forest, London</em></p>
 </div>
+
 ---
 
 ## Environmental cost 
