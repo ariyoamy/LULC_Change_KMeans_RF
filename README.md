@@ -167,7 +167,7 @@ At just under **1 g CO₂e**, the entire analysis emitted less than:
 #### 6.1  Context and Mitigation  
 * **Efficient compute:**  Executed on CPU-only Google Colab sessions (<12 min), using carbon-neutral infrastructure with no GPU or fine-tuning.
 
-* **Minimal data load:**  Used only a tiny fraction (<0.00002%) of Sentinel-2’s total capacity—whose emissions are amortised globally—plus no heavy raster storage or repeated compute.
+* **Minimal data load:**  Used only a tiny fraction (<0.00002%) of Sentinel-2’s total capacity, whose emissions are amortised globally, plus no heavy raster storage or repeated compute.
 
 * **Code efficiency:**  Modular, single-pass pipelines avoided redundancy, and reusable notebooks reduce future re-runs.
 
