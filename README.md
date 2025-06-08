@@ -116,8 +116,8 @@ Random Forest offers robust classification performance, particularly for stable 
 ## 5  Results
 <table>
 <tr><th style="text-align:center">Figure</th><th>Description</th></tr>
-<tr><td><img src="figures/kmeans_cluster_maps.gif" width="300" alt="Animated K-means maps"/></td><td>K-means classifications (2020 → 2024)</td></tr>
-<tr><td><img src="figures/rf_classification.gif" width="300" alt="Animated RF maps"/></td><td>Random-Forest classifications (2020 → 2024)</td></tr>
+<tr><td><img src="figures/kmeans_cluster_maps.gif" width="300" alt="Animated K-means maps"/></td><td>K-means classifications (2020 → 2024) shown as an animated GIF to illustrate year-on-year change.</td></tr>
+<tr><td><img src="figures/rf_classification.gif" width="300" alt="Animated RF maps"/></td><td>Random-Forest classifications (2020 → 2024) shown as an animated GIF to illustrate year-on-year change.</td></tr>
 <tr><td><img src="figures/rf_kmeans_change_maps.png" width="800" alt="Change maps"/></td><td>Urban gain (red) and vegetation loss (yellow), 2020–2024</td></tr>
 <tr><td><img src="figures/rf_feature_importance.png" width="300" alt="Feature importance chart"/></td><td>RF global feature importance, NIR and SWIR2 dominate</td></tr>
 </table>
