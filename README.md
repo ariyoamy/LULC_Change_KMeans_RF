@@ -38,7 +38,7 @@ This project explores both approaches by applying a Random Forest and an unsuper
 
 <div align="center">
   <img src="figures/study_area.png" width="600" alt="Study area map showing the London Borough of Waltham Forest"/>
-  <p><em>Figure&nbsp;1 Study area – the London Borough of Waltham Forest.</em></p>
+  <p><em>Figure&nbsp;1 Study area – the London Borough of Waltham Forest (map produced in QGIS).</em></p>
 </div>
 
 ---
