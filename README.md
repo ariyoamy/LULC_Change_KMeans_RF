@@ -194,8 +194,8 @@ Ultimately, while this project’s carbon footprint is scientifically negligible
 ---
 
 ## 7  Walk-through Video
-A short walk-through (8 min) covering data, code and results is available on YouTube:  
-**<https://youtu.be/will_put_link_here_when_created>**
+A short walk-through (7 min) covering data, code and results is available on YouTube:  
+[![Walk-through Video](https://img.youtube.com/vi/AZPe63V11DQ/0.jpg)](https://youtu.be/AZPe63V11DQ)
 
 ---
 
