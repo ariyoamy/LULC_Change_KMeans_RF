@@ -160,9 +160,9 @@ This project incorporates environmental accountability by tracking the computati
 
 At just under **1 g CO₂e**, the entire analysis emitted less than:
 
-- **1 minute of HD video streaming**
-- **Boiling ⅒ of a kettle**
-- **Driving ~5 meters in a petrol car**
+- 1 minute of HD video streaming
+- Boiling ⅒ of a kettle
+- Driving ~5 meters in a petrol car
 
 #### 6.1  Context and Mitigation  
 * **Efficient compute:**  Executed on CPU-only Google Colab sessions (<12 min), using carbon-neutral infrastructure with no GPU or fine-tuning.
